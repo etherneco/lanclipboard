@@ -1,0 +1,73 @@
+﻿@{
+    ViewBag.Title = "Lan Clipboard";
+}
+
+
+<form action="" method="post">
+    <div class="jumbotron">
+        <h1>Add new clipboard</h1>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="lead">Text or image clipboard</p>
+                <img id="imgpaste" /> 
+                <textarea name="text" class="text100" id="textcopy"></textarea>
+                
+            </div>
+        </div>
+        <p><input type="submit" class="btn btn-primary btn-lg" value="Add" /></p>
+    </div>
+</form>
+
+<div>Lan clipboard objects</div>
+
+<div class="cointainer_main">
+
+    @if (ViewBag.clipboard.Length > 0)
+    {
+
+        for (int i = ViewBag.clipboard.Length-1; i >= 0; i--)
+        {
+            if (!@ViewBag.clipboard[i].Equals(""))
+            {
+
+                <div class="row">
+                    <div class="col-md-8 message-one">
+                        <p>
+
+                            @if (ViewBag.clipboard[i].Substring(0, ViewBag.clipboard[i].Length > 10 ? 10 : ViewBag.clipboard[i].Length).Equals("data:image"))
+                            {
+                                <img src="@ViewBag.clipboard[i]" width="100%" />
+
+
+                            }
+                            else
+                            {
+                                @ViewBag.clipboard[i]
+                            }
+
+                        </p>
+                    </div>
+                    <div class="col-md-4 action-box">
+                        <a href="/element/delete/@i">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </div>
+                </div>
+            }
+
+        }
+
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <p>
+                    Empty clipboard
+                </p>
+            </div>
+        </div>
+
+    }
+
+</div>
